@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body >
+  <!-- templates/base.html ya jahan aapka base template ho -->
+  <nav class="bg-gray-800 p-10">
+    <div class="container mx-auto flex justify-between items-center">
+      <a href="/" class="text-white text-xl font-bold">Todo App</a>
+
+      <div class="space-x-4">
+        {% if user.is_authenticated %}
+          <form method="post" action="{% url 'logout' %}" class="inline">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+              Logout
+            </button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Login
+          </a>
+          <a href="{% url 'register' %}" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+            Register
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+</body>
+</html>
